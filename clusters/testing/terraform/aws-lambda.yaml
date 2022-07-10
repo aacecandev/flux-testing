@@ -5,9 +5,16 @@ metadata:
   name: aws-lambda
   namespace: flux-system
 spec:
+  runnerPodTemplate:
+    metadata:
+      labels:
+        app: tf-runner
+    spec:
+      image: ghcr.io/weaveworks/tf-runner:v0.10.0-rc.6
   approvePlan: "auto"
   destroyResourcesOnDeletion: true
   interval: 1m
+  path: ./iac/terraform
   sourceRef:
     kind: GitRepository
     name: tf-lambda
