@@ -1,0 +1,18 @@
+apiVersion: infra.contrib.fluxcd.io/v1alpha1
+kind: Terraform
+metadata:
+  name: aws-lambda
+  namespace: flux-system
+spec:
+  approvePlan: "auto"
+  destroyResourcesOnDeletion: true
+  interval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: tf-lambda
+    namespace: flux-system
+  varsFrom:
+    - name: tf-aws-system
+      kind: Secret
+  writeOutputsToSecret:
+    name: aws-lambda-outputs
